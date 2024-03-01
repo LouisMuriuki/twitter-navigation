@@ -12,7 +12,18 @@ const MainLayout = () => {
       }}
     >
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-      <Stack.Screen name="post_details/index"  options={{ headerShown: true,headerTitle:"Post" }} />
+      <Stack.Screen
+        name="post_details/index"
+        options={{ headerShown: true, headerTitle: "Post" }}
+      />
+      <Stack.Screen
+        name="media_player/index"
+        options={{
+          headerShown: true,
+          headerTitle: "Post",
+          headerShadowVisible: false,
+        }}
+      />
     </Stack>
   );
 };
