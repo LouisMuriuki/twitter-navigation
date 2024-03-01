@@ -1,11 +1,14 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { Entypo, EvilIcons, Feather } from "@expo/vector-icons";
 import { TwitterPost } from "../data/DataStore";
 import { formatDistance } from "date-fns";
-const Post = (props: TwitterPost) => {
+const Post = (props: any) => {
   return (
-    <View className="flex flex-row w-full h-auto px-2 py-3 border-b-[1px]">
+    <Pressable
+      className="flex flex-row w-full h-auto px-2 py-3 border-b-[1px]"
+      onPress={props.onNavigate}
+    >
       <View className="w-[15%]">
         <Image
           style={{
@@ -60,7 +63,7 @@ const Post = (props: TwitterPost) => {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
