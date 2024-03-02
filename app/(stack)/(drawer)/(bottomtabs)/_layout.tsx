@@ -5,9 +5,18 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useColorScheme } from "nativewind/dist/stylesheet";
 const _layout = () => {
+  const { colorScheme } = useColorScheme();
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        headerTintColor: colorScheme === "dark" ? "white" : "black",
+        tabBarStyle: {
+          backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
+        },
+      }}
+    >
       <Tabs.Screen
         name="(toptabs)"
         options={{

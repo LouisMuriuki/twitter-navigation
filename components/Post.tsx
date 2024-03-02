@@ -11,11 +11,13 @@ import { Entypo, EvilIcons, Feather } from "@expo/vector-icons";
 import { TwitterPost } from "../data/DataStore";
 import { formatDistance } from "date-fns";
 import { Link } from "expo-router";
+import { useColorScheme } from "nativewind";
 const Post = (props: any) => {
   const { height, width } = useWindowDimensions();
+  const { colorScheme } = useColorScheme();
   return (
     <TouchableOpacity onPress={() => props.onNavigate(props)}>
-      <View className="flex flex-row w-[100%] px-2 py-3 border-b-[1px]">
+      <View className="flex flex-row w-[100%] px-2 py-3 border-emerald-300 border-b-[1px]">
         <View className="w-[15%]">
           <Image
             style={{
@@ -32,11 +34,11 @@ const Post = (props: any) => {
         <View className="flex flex-col w-[85%] mt-[-5px]">
           <View className="flex flex-row items-center justify-between">
             <View className="flex flex-row items-center gap-1">
-              <Text className="font-bold text-xl ">
+              <Text className="font-bold text-xl dark:text-white text-dark">
                 {props.user.displayName}
               </Text>
-              <Text className="font-semibold text-lg">{`@${props.user.username}`}</Text>
-              <Text className="text-sm">
+              <Text className="font-semibold dark:text-white text-dark text-lg">{`@${props.user.username}`}</Text>
+              <Text className="text-sm dark:text-white text-dark">
                 {formatDistance(props.timestamp, new Date(), {
                   addSuffix: true,
                 })}
@@ -48,7 +50,9 @@ const Post = (props: any) => {
             className="py-1"
             onPress={() => props.displayMedia(props)}
           >
-            <Text className="m-4">{props.content}</Text>
+            <Text className="m-4 dark:text-white text-dark">
+              {props.content}
+            </Text>
             <View className="">
               <Image
                 style={{
@@ -65,25 +69,49 @@ const Post = (props: any) => {
           </TouchableOpacity>
           <View className="flex flex-row items-center justify-between mt-3">
             <View className="flex items-center justify-center flex-row gap-1">
-              <EvilIcons name="comment" size={24} color="black" />
+              <EvilIcons
+                name="comment"
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
               <Text className="mb-[-3]">{props.replies}</Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
-              <EvilIcons name="retweet" size={24} color="black" />
+              <EvilIcons
+                name="retweet"
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
               <Text className="mb-[-3]">{props.retweets}</Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
-              <EvilIcons name="heart" size={24} color="black" />
+              <EvilIcons
+                name="heart"
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
               <Text className="mb-[-3]">{props.likes}</Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
-              <EvilIcons name="chart" size={24} color="black" />
+              <EvilIcons
+                name="chart"
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
               <Text className="mb-[-3]">{props.likes}</Text>
             </View>
 
             <View className="flex flex-row gap-3 mr-2">
-              <Feather name="bookmark" size={22} color="black" />
-              <EvilIcons name="share-google" size={24} color="black" />
+              <Feather
+                name="bookmark"
+                size={22}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
+              <EvilIcons
+                name="share-google"
+                size={24}
+                color={colorScheme === "dark" ? "white" : "black"}
+              />
             </View>
           </View>
         </View>

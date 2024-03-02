@@ -3,8 +3,8 @@ import React from "react";
 
 const search = () => {
   return (
-    <View className="  bg-white flex-1">
-      <Text>search</Text>
+    <View className="dark:bg-dark bg-white flex-1">
+      <Text className="dark:text-white text-dark">search</Text>
     </View>
   );
 };

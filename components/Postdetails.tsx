@@ -5,7 +5,7 @@ import { EvilIcons, Feather } from "@expo/vector-icons";
 const Postdetails = () => {
   const { width, height } = useWindowDimensions();
   return (
-    <View className="flex flex-col w-full px-2 bg-white">
+    <View className="flex flex-col w-full px-2 ">
       <View className="flex flex-row items-center justify-between">
         <View className="flex flex-row items-center gap-4 justify-center">
           <Image
@@ -20,8 +20,8 @@ const Postdetails = () => {
             className="w-30 h-30 rounded"
           />
           <View className="flex flex-col">
-            <Text>Louis Muriuki</Text>
-            <Text>@louismuriuki</Text>
+            <Text className="dark:text-white text-dark">Louis Muriuki</Text>
+            <Text className="dark:text-white text-dark">@louismuriuki</Text>
           </View>
         </View>
         <View>
@@ -29,7 +29,9 @@ const Postdetails = () => {
         </View>
       </View>
       <View className="flex flex-col py-3 ">
-        <Text className="m-4 text-left">Some random tweet here</Text>
+        <Text className="m-4 text-left dark:text-white text-dark">
+          Some random tweet here
+        </Text>
         <View className="flex items-center justify-between">
           <Image
             style={{
@@ -45,14 +47,26 @@ const Postdetails = () => {
         </View>
       </View>
       <View className="flex flex-row items-center mb-4">
-        <Text className="mr-2 font-semibold text-base">20:50</Text>
-        <Text className="mr-2 font-semibold text-base">01 Mar 24</Text>
-        <Text className="mr-2 font-semibold text-base">1405 Views</Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          20:50
+        </Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          01 Mar 24
+        </Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          1405 Views
+        </Text>
       </View>
       <View className="flex flex-row items-center">
-        <Text className="mr-2 font-semibold text-base">1 Repost</Text>
-        <Text className="mr-2 font-semibold text-base">1 Like</Text>
-        <Text className="mr-2 font-semibold text-base">1 Bookmark</Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          1 Repost
+        </Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          1 Like
+        </Text>
+        <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
+          1 Bookmark
+        </Text>
       </View>
       <View className="flex flex-row items-center justify-between mt-3 p-3">
         <View className="flex items-center justify-center flex-row">

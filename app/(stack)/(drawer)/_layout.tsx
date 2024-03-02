@@ -4,11 +4,23 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import CustomDrawerContent from "../../../components/CustomDrawerContent";
-
+import { useColorScheme } from "nativewind/dist/stylesheet";
 const _layout = () => {
+  const { colorScheme } = useColorScheme();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer drawerContent={CustomDrawerContent}>
+      <Drawer
+        drawerContent={CustomDrawerContent}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
+          },
+          drawerStyle: {
+            backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
+          },
+          headerTintColor: colorScheme === "dark" ? "white" : "black",
+        }}
+      >
         <Drawer.Screen
           name="(bottomtabs)"
           options={{
@@ -35,7 +47,11 @@ const _layout = () => {
             headerRight: () => {
               return (
                 <View style={{ marginHorizontal: 20 }}>
-                  <Feather name="settings" size={24} color="black" />
+                  <Feather
+                    name="settings"
+                    size={24}
+                    color={colorScheme === "dark" ? "white" : "black"}
+                  />
                 </View>
               );
             },

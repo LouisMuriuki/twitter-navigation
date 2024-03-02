@@ -24,7 +24,7 @@ const index = () => {
     );
   };
   return (
-    <View className=" bg-white flex-1">
+    <View className="dark:bg-dark bg-white  dark:text-white text-dark">
       <FlatList
         data={twitterPosts}
         keyExtractor={(item) => item.id.toString()}

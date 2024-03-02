@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { Stack, withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import { useColorScheme } from "nativewind";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -17,9 +18,18 @@ export const MaterialTopTabs = withLayoutContext<
   MaterialTopTabNavigationEventMap
 >(Navigator);
 const RootLayout = () => {
+  const { colorScheme } = useColorScheme();
   return (
-    <MaterialTopTabs>
-    </MaterialTopTabs>
+    <MaterialTopTabs
+      screenOptions={{
+        tabBarLabelStyle: {
+          color: colorScheme === "dark" ? "white" : "black",
+        },
+        tabBarStyle: {
+          backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
+        },
+      }}
+    ></MaterialTopTabs>
   );
 };
 
