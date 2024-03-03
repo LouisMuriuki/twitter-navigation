@@ -8,15 +8,20 @@ import {
 } from "react-native";
 import React from "react";
 import { Entypo, EvilIcons, Feather } from "@expo/vector-icons";
-import { TwitterPost } from "../data/DataStore";
 import { formatDistance } from "date-fns";
-import { Link } from "expo-router";
 import { useColorScheme } from "nativewind";
-const Post = (props: any) => {
+import { TwitterPost } from "../data/DataStore";
+import Animated from "react-native-reanimated";
+const Post = (props: {
+  onNavigate: (item: TwitterPost) => void;
+  displayMedia: (item: TwitterPost) => void;
+  post: TwitterPost;
+}) => {
+  const post = props.post;
   const { height, width } = useWindowDimensions();
   const { colorScheme } = useColorScheme();
   return (
-    <TouchableOpacity onPress={() => props.onNavigate(props)}>
+    <TouchableOpacity onPress={() => props.onNavigate(post)}>
       <View className="flex flex-row w-[100%] px-2 py-3 border-emerald-300 border-b-[1px]">
         <View className="w-[15%]">
           <Image
@@ -35,11 +40,11 @@ const Post = (props: any) => {
           <View className="flex flex-row items-center justify-between">
             <View className="flex flex-row items-center gap-1">
               <Text className="font-bold text-xl dark:text-white text-dark">
-                {props.user.displayName}
+                {post.user?.displayName}
               </Text>
-              <Text className="font-semibold dark:text-white text-dark text-lg">{`@${props.user.username}`}</Text>
+              <Text className="dark:text-white text-dark text-lg">{`@${post.user?.username}`}</Text>
               <Text className="text-sm dark:text-white text-dark">
-                {formatDistance(props.timestamp, new Date(), {
+                {formatDistance(post.timestamp, new Date(), {
                   addSuffix: true,
                 })}
               </Text>
@@ -47,13 +52,14 @@ const Post = (props: any) => {
             <Entypo name="dots-three-vertical" size={18} color="grey" />
           </View>
 
-          <Text className="m-4 dark:text-white text-dark">{props.content}</Text>
+          <Text className="m-4 dark:text-white text-dark">{post.content}</Text>
           <TouchableOpacity
             className="py-1"
-            onPress={() => props.displayMedia(props)}
+            onPress={() => props.displayMedia(post)}
           >
             <View className="">
-              <Image
+              <Animated.Image
+                sharedTransitionTag="postImage"
                 style={{
                   margin: 10,
                   borderRadius: 10,
@@ -73,7 +79,9 @@ const Post = (props: any) => {
                 size={24}
                 color={colorScheme === "dark" ? "white" : "black"}
               />
-              <Text className="mb-[-3]">{props.replies}</Text>
+              <Text className="mb-[-3] dark:text-white text-dark">
+                {post.replies}
+              </Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
               <EvilIcons
@@ -81,7 +89,9 @@ const Post = (props: any) => {
                 size={24}
                 color={colorScheme === "dark" ? "white" : "black"}
               />
-              <Text className="mb-[-3]">{props.retweets}</Text>
+              <Text className="mb-[-3] dark:text-white text-dark">
+                {post.retweets}
+              </Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
               <EvilIcons
@@ -89,7 +99,9 @@ const Post = (props: any) => {
                 size={24}
                 color={colorScheme === "dark" ? "white" : "black"}
               />
-              <Text className="mb-[-3]">{props.likes}</Text>
+              <Text className="mb-[-3] dark:text-white text-dark">
+                {post.likes}
+              </Text>
             </View>
             <View className="flex items-center justify-center flex-row gap-1">
               <EvilIcons
@@ -97,7 +109,9 @@ const Post = (props: any) => {
                 size={24}
                 color={colorScheme === "dark" ? "white" : "black"}
               />
-              <Text className="mb-[-3]">{props.likes}</Text>
+              <Text className="mb-[-3] dark:text-white text-dark">
+                {post.likes}
+              </Text>
             </View>
 
             <View className="flex flex-row gap-3 mr-2">

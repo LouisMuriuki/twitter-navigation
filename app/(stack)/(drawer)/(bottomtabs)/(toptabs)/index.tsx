@@ -5,22 +5,22 @@ import Post from "../../../../../components/Post";
 import { router } from "expo-router";
 
 const index = () => {
-  const navigateToPostDetails = (item: any) => {
-    router.navigate({ pathname: "/post_details/", params: item });
+  const navigateToPostDetails = (item:TwitterPost) => {
+    router.navigate({ pathname: "/post_details/", params: {id:item.id} });
   };
-  const displayMedia = (item: any) => {
+  const displayMedia = (item: TwitterPost) => {
     console.log("Item is ", item);
     if (item) {
       router.navigate({
         pathname: "/(stack)/media_player/",
-        params: item, 
+        params: {id:item.id}, 
       });
     }
   };
   const render = ({ item }: any) => {
     return (
       <Post
-        {...item}
+        post={item}
         onNavigate={navigateToPostDetails}
         displayMedia={displayMedia}
       />

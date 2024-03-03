@@ -44,12 +44,12 @@ export const CustomDrawerContent = (props: any) => {
             <Entypo name="dots-three-vertical" size={18} color="grey" />
           </View>
         </View>
-        <View className="flex flex-row gap-4 ">
+        <View className="flex flex-row mt-3">
           <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
-            1 Repost
+            1 Following
           </Text>
           <Text className="mr-2 font-semibold text-base dark:text-white text-dark">
-            1 Like
+            1 Followers
           </Text>
         </View>
       </View>

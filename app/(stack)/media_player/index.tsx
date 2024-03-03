@@ -3,12 +3,16 @@ import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import { EvilIcons, Feather } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
+import { TwitterPost, twitterPosts } from "../../../data/DataStore";
 
 const MediaPlayer = () => {
   const { width, height } = useWindowDimensions();
-   const { colorScheme } = useColorScheme();
-   const item = useLocalSearchParams();
-  console.log("Here are my params", item);
+  const { colorScheme } = useColorScheme();
+  const { id } = useLocalSearchParams()
+
+  //@ts-expect-error
+  const Post: TwitterPost[] = twitterPosts.filter((post) => post.id == id);
+  
   return (
     <View
       className="flex flex-col h-full justify-evenly dark:bg-dark bg-white"
@@ -28,8 +32,12 @@ const MediaPlayer = () => {
               alt="Lui"
             />
             <View className="flex flex-col">
-              <Text className="dark:text-white text-dark">Louis Muriuki</Text>
-              <Text className="dark:text-white text-dark">@louismuriuki</Text>
+              <Text className="dark:text-white text-dark">
+                {Post[0].user?.displayName}
+              </Text>
+              <Text className="dark:text-white text-dark">
+                {Post[0].user?.username}
+              </Text>
             </View>
           </View>
           <View>
@@ -60,7 +68,9 @@ const MediaPlayer = () => {
               size={24}
               color={colorScheme === "dark" ? "white" : "black"}
             />
-            <Text className="mb-[-3] dark:text-white text-dark">{5}</Text>
+            <Text className="mb-[-3] dark:text-white text-dark">
+              {Post[0].replies}
+            </Text>
           </View>
           <View className="flex items-center justify-center flex-row gap-1">
             <EvilIcons
@@ -68,7 +78,9 @@ const MediaPlayer = () => {
               size={24}
               color={colorScheme === "dark" ? "white" : "black"}
             />
-            <Text className="mb-[-3] dark:text-white text-dark">{19}</Text>
+            <Text className="mb-[-3] dark:text-white text-dark">
+              {Post[0].retweets}
+            </Text>
           </View>
           <View className="flex items-center justify-center flex-row gap-1">
             <EvilIcons
@@ -76,7 +88,9 @@ const MediaPlayer = () => {
               size={24}
               color={colorScheme === "dark" ? "white" : "black"}
             />
-            <Text className="mb-[-3] dark:text-white text-dark">{44}</Text>
+            <Text className="mb-[-3] dark:text-white text-dark">
+              {Post[0].likes}
+            </Text>
           </View>
           <View className="flex items-center justify-center flex-row gap-1">
             <EvilIcons
@@ -84,7 +98,9 @@ const MediaPlayer = () => {
               size={24}
               color={colorScheme === "dark" ? "white" : "black"}
             />
-            <Text className="mb-[-3] dark:text-white text-dark">{44}</Text>
+            <Text className="mb-[-3] dark:text-white text-dark">
+              {Post[0].likes}
+            </Text>
           </View>
 
           <View className="flex flex-row gap-3 mr-2">
