@@ -23,7 +23,7 @@ const _layout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: () => {
-            return <AntDesign name="home" size={24} color="black" />;
+            return <AntDesign name="home" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
           },
         }}
       />
@@ -31,7 +31,7 @@ const _layout = () => {
         name="search"
         options={{
           tabBarIcon: () => {
-            return <AntDesign name="search1" size={24} color="black" />;
+            return <AntDesign name="search1" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
           },
           headerShown: false,
         }}
@@ -44,7 +44,7 @@ const _layout = () => {
               <MaterialCommunityIcons
                 name="alpha-i-box"
                 size={24}
-                color="black"
+                color={colorScheme === "dark" ? "white" : "black"}
               />
             );
           },
@@ -55,7 +55,7 @@ const _layout = () => {
         name="notifications"
         options={{
           tabBarIcon: () => {
-            return <Ionicons name="notifications" size={24} color="black" />;
+            return <Ionicons name="notifications" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
           },
           headerShown: false,
         }}
@@ -64,7 +64,7 @@ const _layout = () => {
         name="messages"
         options={{
           tabBarIcon: () => {
-            return <AntDesign name="mail" size={24} color="black" />;
+            return <AntDesign name="mail" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
           },
           headerShown: false,
         }}

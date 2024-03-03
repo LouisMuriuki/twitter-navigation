@@ -11,17 +11,24 @@ const MainLayout = () => {
       screenOptions={{
         headerShadowVisible: true,
         headerShown: false,
-        contentStyle: { backgroundColor: "#181818" },
-        statusBarStyle: "dark",
-        
+        // contentStyle: {
+        //   backgroundColor: colorScheme === "dark" ? "#181818" : "white",
+        // },
+        statusBarStyle: colorScheme === "dark" ? "light" : "dark",
+        headerTintColor: colorScheme === "dark" ? "white" : "black",
+        navigationBarColor: colorScheme === "dark" ? "black" : "white",
+        headerStyle: {
+          backgroundColor: colorScheme === "dark" ? "#181818" : "white",
+        },
       }}
     >
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
       <Stack.Screen
         name="post_details/index"
-        options={{ headerShown: true, headerTitle: "Post", headerStyle: {
-          backgroundColor: colorScheme === "dark" ? "white" : "black",
-        },}}
+        options={{
+          headerShown: true,
+          headerTitle: "Post",
+        }}
       />
       <Stack.Screen
         name="media_player/index"

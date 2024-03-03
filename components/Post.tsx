@@ -46,13 +46,12 @@ const Post = (props: any) => {
             </View>
             <Entypo name="dots-three-vertical" size={18} color="grey" />
           </View>
+
+          <Text className="m-4 dark:text-white text-dark">{props.content}</Text>
           <TouchableOpacity
             className="py-1"
             onPress={() => props.displayMedia(props)}
           >
-            <Text className="m-4 dark:text-white text-dark">
-              {props.content}
-            </Text>
             <View className="">
               <Image
                 style={{

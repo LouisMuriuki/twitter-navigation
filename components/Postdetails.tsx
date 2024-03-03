@@ -1,8 +1,10 @@
-import { View, Text, Image, Button, useWindowDimensions } from "react-native";
+import { View, Text, Image, Button, useWindowDimensions, TouchableOpacity } from "react-native";
 import React from "react";
 import { EvilIcons, Feather } from "@expo/vector-icons";
+import { useColorScheme } from "nativewind";
 
 const Postdetails = () => {
+  const { colorScheme } = useColorScheme();
   const { width, height } = useWindowDimensions();
   return (
     <View className="flex flex-col w-full px-2 ">
@@ -33,17 +35,22 @@ const Postdetails = () => {
           Some random tweet here
         </Text>
         <View className="flex items-center justify-between">
-          <Image
-            style={{
-              margin: 10,
-              borderRadius: 10,
-              maxHeight: width / 2,
-              height: width / 2,
-              width: width * 0.95,
-            }}
-            src="https://www.louismuriuki.dev/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flui.d6485f5e.jpg&w=3840&q=75"
-            alt="Lui"
-          />
+          <TouchableOpacity
+            className="py-1"
+            // onPress={() => props.displayMedia(props)}
+          >
+            <Image
+              style={{
+                margin: 10,
+                borderRadius: 10,
+                maxHeight: width / 2,
+                height: width / 2,
+                width: width * 0.95,
+              }}
+              src="https://www.louismuriuki.dev/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flui.d6485f5e.jpg&w=3840&q=75"
+              alt="Lui"
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View className="flex flex-row items-center mb-4">
@@ -70,22 +77,46 @@ const Postdetails = () => {
       </View>
       <View className="flex flex-row items-center justify-between mt-3 p-3">
         <View className="flex items-center justify-center flex-row">
-          <EvilIcons name="comment" size={24} color="black" />
+          <EvilIcons
+            name="comment"
+            size={24}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
         <View className="flex items-center justify-center flex-row">
-          <EvilIcons name="retweet" size={24} color="black" />
+          <EvilIcons
+            name="retweet"
+            size={24}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
         <View className="flex items-center justify-center flex-row">
-          <EvilIcons name="heart" size={24} color="black" />
+          <EvilIcons
+            name="heart"
+            size={24}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
         <View className="flex items-center justify-center flex-row">
-          <EvilIcons name="chart" size={24} color="black" />
+          <EvilIcons
+            name="chart"
+            size={24}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
         <View className="flex items-center justify-center flex-row">
-          <Feather name="bookmark" size={22} color="black" />
+          <Feather
+            name="bookmark"
+            size={22}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
         <View className="flex items-center justify-center flex-row">
-          <EvilIcons name="share-google" size={24} color="black" />
+          <EvilIcons
+            name="share-google"
+            size={24}
+            color={colorScheme === "dark" ? "white" : "black"}
+          />
         </View>
       </View>
     </View>

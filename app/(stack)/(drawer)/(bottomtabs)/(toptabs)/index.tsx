@@ -6,13 +6,16 @@ import { router } from "expo-router";
 
 const index = () => {
   const navigateToPostDetails = (item: any) => {
-    router.navigate({ pathname: "/post_details/", params: { item } });
+    router.navigate({ pathname: "/post_details/", params: item });
   };
   const displayMedia = (item: any) => {
-    router.navigate({
-      pathname: "/(stack)/media_player/",
-      params: { item },
-    });
+    console.log("Item is ", item);
+    if (item) {
+      router.navigate({
+        pathname: "/(stack)/media_player/",
+        params: item, 
+      });
+    }
   };
   const render = ({ item }: any) => {
     return (
