@@ -12,13 +12,16 @@ import { formatDistance } from "date-fns";
 import { useColorScheme } from "nativewind";
 import { TwitterPost } from "../data/DataStore";
 import Animated from "react-native-reanimated";
+import { Video, ResizeMode } from "expo-av";
 const Post = (props: {
   onNavigate: (item: TwitterPost) => void;
-  displayMedia: (item: TwitterPost) => void;
+  displayMedia: (item: TwitterPost,type:string) => void;
   post: TwitterPost;
 }) => {
   const post = props.post;
   const { height, width } = useWindowDimensions();
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
   const { colorScheme } = useColorScheme();
   return (
     <TouchableOpacity onPress={() => props.onNavigate(post)}>
@@ -31,7 +34,7 @@ const Post = (props: {
               height: 35,
               width: 35,
             }}
-            src="https://www.louismuriuki.dev/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flui.d6485f5e.jpg&w=3840&q=75"
+            src={post.user.avatarUrl}
             alt="Lui"
             className="w-30 h-30 rounded"
           />
@@ -53,25 +56,60 @@ const Post = (props: {
           </View>
 
           <Text className="m-4 dark:text-white text-dark">{post.content}</Text>
-          <TouchableOpacity
-            className="py-1"
-            onPress={() => props.displayMedia(post)}
-          >
-            <View className="">
-              <Animated.Image
-                sharedTransitionTag="postImage"
-                style={{
-                  margin: 10,
-                  borderRadius: 10,
-                  maxHeight: width / 2,
-                  height: width / 2.5,
-                  width: width * 0.75,
-                }}
-                src="https://www.louismuriuki.dev/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flui.d6485f5e.jpg&w=3840&q=75"
-                alt="Lui"
-              />
-            </View>
-          </TouchableOpacity>
+          <View className="flex flex-row items-center justify-evenly">
+            {post.media &&
+              post.media.map((medium, i) => {
+                return (
+                  <View className="flex flex-row items-center justify-evenly">
+                    {medium.type === "image" && (
+                      <TouchableOpacity
+                        className="py-1"
+                        onPress={() => props.displayMedia(post,medium.type)}
+                      >
+                        <Animated.Image
+                          sharedTransitionTag="postImage"
+                          style={{
+                            margin: 10,
+                            borderRadius: 10,
+                            maxHeight: width / 2,
+                            height: width / 2.5,
+                            width: width * (0.80 / post.media?.length!),
+                          }}
+                          src={medium.url}
+                          alt="Lui"
+                        />
+                      </TouchableOpacity>
+                    )}
+                    {medium.type === "video" && (
+                      <TouchableOpacity
+                        className="py-1 "
+                        onPress={() => props.displayMedia(post,medium.type)}
+                      >
+                        <Video
+                          ref={video}
+                          style={{
+                             margin: 10,
+                            borderRadius: 10,
+                            height: width / 2.5,
+                            width: width * (0.80 / post.media?.length!),
+                          }}
+                          source={{
+                            uri: medium.url,
+                          }}
+                          resizeMode={ResizeMode.COVER}
+                          isLooping
+                          usePoster
+                          onPlaybackStatusUpdate={(status) =>
+                            setStatus(() => status)
+                          }
+                        />
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
+          </View>
+
           <View className="flex flex-row items-center justify-between mt-3">
             <View className="flex items-center justify-center flex-row gap-1">
               <EvilIcons

@@ -5,18 +5,18 @@ import { router, useLocalSearchParams } from "expo-router";
 import { TwitterPost, twitterPosts } from "../../../data/DataStore";
 
 const PostDetails = () => {
- const { id } = useLocalSearchParams();
- //@ts-expect-error
- const Post: TwitterPost[] = twitterPosts.filter((post) => post.id == id);
-const displayMedia = (item:TwitterPost) => {
-  console.log("Item is ", item);
-  if (item) {
-    router.navigate({
-      pathname: "/(stack)/media_player/",
-      params: { id: item.id },
-    });
-  }
-};
+  const { id } = useLocalSearchParams();
+  //@ts-expect-error
+  const Post: TwitterPost[] = twitterPosts.filter((post) => post.id == id);
+  const displayMedia = (item: TwitterPost, type: string) => {
+    console.log("Item is ", item);
+    if (item) {
+      router.navigate({
+        pathname: "/(stack)/media_player/",
+        params: { id: item.id, type: type },
+      });
+    }
+  };
   return (
     <ScrollView className="flex mb-3 p-2 dark:bg-dark bg-white">
       <Postdetails Post={Post[0]} displayMedia={displayMedia} />
