@@ -9,6 +9,7 @@ import {
 import { useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { Entypo } from "@expo/vector-icons";
+import { getLightColor } from "../utils/getColor";
 export const CustomDrawerContent = (props: any) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const router = useRouter();
@@ -59,7 +60,7 @@ export const CustomDrawerContent = (props: any) => {
             name="day-sunny"
             size={28}
             onPress={toggleColorScheme}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
             className="p-3"
           />
         ) : (
@@ -67,7 +68,7 @@ export const CustomDrawerContent = (props: any) => {
             name="night-clear"
             onPress={toggleColorScheme}
             size={28}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
             className="p-3"
           />
         )}

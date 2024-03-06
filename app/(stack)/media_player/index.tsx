@@ -13,6 +13,7 @@ import { useColorScheme } from "nativewind";
 import { TwitterPost, twitterPosts } from "../../../data/DataStore";
 import Animated from "react-native-reanimated";
 import { ResizeMode, Video } from "expo-av";
+import { getLightColor } from "../../../utils/getColor";
 
 const MediaPlayer = () => {
   const { width, height } = useWindowDimensions();
@@ -66,7 +67,7 @@ const MediaPlayer = () => {
                 borderRadius: 10,
                 maxHeight: width / 2,
                 height: width / 2,
-                width: width * 0.90,
+                width: width * 0.9,
               }}
               src={Post[0].media && Post[0].media[0]?.url}
               alt="Lui"
@@ -79,7 +80,7 @@ const MediaPlayer = () => {
                 margin: 10,
                 borderRadius: 10,
                 height: width / 2,
-                width: width * 0.90,
+                width: width * 0.9,
               }}
               source={{
                 // @ts-expect-error
@@ -99,7 +100,7 @@ const MediaPlayer = () => {
             <EvilIcons
               name="comment"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
             <Text className="mb-[-3] dark:text-white text-dark">
               {Post[0].replies}
@@ -109,7 +110,7 @@ const MediaPlayer = () => {
             <EvilIcons
               name="retweet"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
             <Text className="mb-[-3] dark:text-white text-dark">
               {Post[0].retweets}
@@ -119,7 +120,7 @@ const MediaPlayer = () => {
             <EvilIcons
               name="heart"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
             <Text className="mb-[-3] dark:text-white text-dark">
               {Post[0].likes}
@@ -129,7 +130,7 @@ const MediaPlayer = () => {
             <EvilIcons
               name="chart"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
             <Text className="mb-[-3] dark:text-white text-dark">
               {Post[0].likes}
@@ -140,12 +141,12 @@ const MediaPlayer = () => {
             <Feather
               name="bookmark"
               size={22}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
             <EvilIcons
               name="share-google"
               size={24}
-              color={colorScheme === "dark" ? "white" : "black"}
+              color={getLightColor(colorScheme)}
             />
           </View>
         </View>

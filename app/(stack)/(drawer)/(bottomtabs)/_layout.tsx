@@ -6,14 +6,15 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind/dist/stylesheet";
+import { getDarkColor, getLightColor } from "../../../../utils/getColor";
 const _layout = () => {
   const { colorScheme } = useColorScheme();
   return (
     <Tabs
       screenOptions={{
-        headerTintColor: colorScheme === "dark" ? "white" : "black",
+        headerTintColor: getLightColor(colorScheme),
         tabBarStyle: {
-          backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
+          backgroundColor: getDarkColor(colorScheme),
         },
       }}
     >
@@ -23,7 +24,7 @@ const _layout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: () => {
-            return <AntDesign name="home" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
+            return <AntDesign name="home" size={24} color={getLightColor(colorScheme)} />;
           },
         }}
       />
@@ -31,7 +32,7 @@ const _layout = () => {
         name="search"
         options={{
           tabBarIcon: () => {
-            return <AntDesign name="search1" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
+            return <AntDesign name="search1" size={24} color={getLightColor(colorScheme)} />;
           },
           headerShown: false,
         }}
@@ -44,7 +45,7 @@ const _layout = () => {
               <MaterialCommunityIcons
                 name="alpha-i-box"
                 size={24}
-                color={colorScheme === "dark" ? "white" : "black"}
+                color={getLightColor(colorScheme)}
               />
             );
           },
@@ -55,7 +56,7 @@ const _layout = () => {
         name="notifications"
         options={{
           tabBarIcon: () => {
-            return <Ionicons name="notifications" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
+            return <Ionicons name="notifications" size={24} color={getLightColor(colorScheme)} />;
           },
           headerShown: false,
         }}
@@ -64,7 +65,7 @@ const _layout = () => {
         name="messages"
         options={{
           tabBarIcon: () => {
-            return <AntDesign name="mail" size={24} color={colorScheme === "dark" ? "white" : "black"} />;
+            return <AntDesign name="mail" size={24} color={getLightColor(colorScheme)} />;
           },
           headerShown: false,
         }}

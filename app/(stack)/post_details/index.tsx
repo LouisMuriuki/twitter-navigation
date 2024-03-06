@@ -20,7 +20,7 @@ const PostDetails = () => {
   return (
     <ScrollView className="flex mb-3 p-2 dark:bg-dark bg-white">
       <Postdetails Post={Post[0]} displayMedia={displayMedia} />
-      <View className="m-3 ">
+      <View className="">
         <Text className="text-xl font-bold dark:text-white text-dark">
           Discover more
         </Text>
