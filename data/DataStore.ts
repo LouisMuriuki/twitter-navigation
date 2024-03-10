@@ -103,3 +103,9 @@ export const twitterPosts: TwitterPost[] = [
   },
   // Add more posts as needed
 ];
+
+export const COLORSCHEME = [
+  { name: "Off", type: "light" },
+  { name: "On", type: "dark" },
+  { name: "Use device settings", type: "system" },
+];

@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { Dimensions, StyleSheet, Switch, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
@@ -8,11 +8,17 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSelector, useDispatch } from "react-redux";
 import { closeBottomSheet } from "../store/slices/modalSlice";
+import RadioButton from "./RadioButton";
+import { useColorScheme } from "nativewind";
+import colors from "../themes/colors";
+import { COLORSCHEME } from "../data/DataStore";
+import { darkMode } from "../store/slices/colorSchemeModeSlice";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const MAX_TRANSLATE_Y = SCREEN_HEIGHT / 1.5;
 const MIN_TRANSLATE_Y = SCREEN_HEIGHT / 5;
 export default function Bottomsheet() {
+  const { colorScheme } = useColorScheme();
   const modal = useSelector((state) => state.ModalSlice.colorSchemeBottomSheet);
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
@@ -31,7 +37,6 @@ export default function Bottomsheet() {
       }
       if (translateY.value < -MIN_TRANSLATE_Y) {
         translateY.value = withSpring(-MAX_TRANSLATE_Y);
-        dispatch(closeBottomSheet(true));
       }
     });
 
@@ -48,21 +53,50 @@ export default function Bottomsheet() {
     "worklet";
     translateY.value = withSpring(destination, { damping: 50 });
   };
+  const setColorScheme = (type: string) => {
+    switch (type) {
+      case "dark":
+        dispatch(darkMode("dark"));
+        break;
+      case "light":
+        dispatch(darkMode("light"));
+        break;
 
-  useEffect(() => {
-    console.log("modal is open", modal.open);
-    // Initial scroll to show the bottom sheet partially
-    scrollTo(-SCREEN_HEIGHT / 3);
-  }, [modal.open]);
+      default:
+        break;
+    }
+  };
 
   return (
-    <GestureDetector  gesture={gesture}>
-      <Animated.View 
-      className="dark:bg-dark bg-white"
+    <GestureDetector gesture={gesture}>
+      <Animated.View
+        className="dark:bg-dark bg-white"
         style={[styles.bottomsheet_container, reanimatedBottomStyle]}
       >
-        <View style={styles.line} />
-        <Text>Bottomsheet</Text>
+        <View
+          style={[
+            styles.line,
+            colorScheme === "dark"
+              ? { backgroundColor: colors.white }
+              : { backgroundColor: colors.dark },
+          ]}
+        />
+        <View className="m-5">
+          <Text className="dark:text-white text-dark mb-5" style={styles.Text}>
+            Dark mode
+          </Text>
+        </View>
+        <View style={styles.border} />
+        {COLORSCHEME.map((scheme, i) => {
+          return (
+            <RadioButton
+              key={i}
+              index={i}
+              scheme={scheme}
+              setColorScheme={setColorScheme}
+            />
+          );
+        })}
       </Animated.View>
     </GestureDetector>
   );
@@ -76,12 +110,25 @@ const styles = StyleSheet.create({
     top: SCREEN_HEIGHT / 1.5,
     zIndex: 12000,
     borderRadius: 25,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+  },
+  Text: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  border: {
+    width: "100%",
+    height: 1,
+    position: "absolute",
+    top: "6%",
+    backgroundColor: "grey",
+    borderRadius: 10,
+    alignSelf: "center",
+    marginVertical: 10,
   },
   line: {
     width: 75,
     height: 4,
-    backgroundColor: "white",
     borderRadius: 20,
     alignSelf: "center",
     marginVertical: 10,
