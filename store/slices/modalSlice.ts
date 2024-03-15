@@ -9,9 +9,11 @@ const ModalSlice = createSlice({
   initialState,
   reducers: {
     openBottomSheet: (state, action) => {
+      console.log("acvtion is ",action)
       state.colorSchemeBottomSheet.open = action.payload;
     },
     closeBottomSheet: (state, action) => {
+         console.log("acvation is ", action);
       state.colorSchemeBottomSheet.open = !action.payload;
     },
   },

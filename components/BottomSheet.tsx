@@ -12,14 +12,16 @@ import RadioButton from "./RadioButton";
 import { useColorScheme } from "nativewind";
 import colors from "../themes/colors";
 import { COLORSCHEME } from "../data/DataStore";
-import { darkMode } from "../store/slices/colorSchemeModeSlice";
+import { darkMode, defaultMode } from "../store/slices/colorSchemeModeSlice";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const MAX_TRANSLATE_Y = SCREEN_HEIGHT / 1.5;
 const MIN_TRANSLATE_Y = SCREEN_HEIGHT / 5;
 export default function Bottomsheet() {
   const { colorScheme } = useColorScheme();
-  const modal = useSelector((state) => state.ModalSlice.colorSchemeBottomSheet);
+  const modal = useSelector(
+    (state) => state.ModalSlice?.colorSchemeBottomSheet
+  );
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
   const dispatch = useDispatch();
@@ -33,20 +35,29 @@ export default function Bottomsheet() {
     })
     .onEnd((e) => {
       if (translateY.value > -MIN_TRANSLATE_Y) {
-        translateY.value = withSpring(SCREEN_HEIGHT);
+        translateY.value = withSpring(MAX_TRANSLATE_Y);
       }
       if (translateY.value < -MIN_TRANSLATE_Y) {
         translateY.value = withSpring(-MAX_TRANSLATE_Y);
       }
+     
     });
 
   /**
    * Animated style for the bottom sheet
    */
-  const reanimatedBottomStyle = useAnimatedStyle((e) => {
-    return {
-      transform: [{ translateY: translateY.value }],
-    };
+  const reanimatedBottomStyle = useAnimatedStyle(() => {
+    {
+      if (modal.open) {
+        return {
+          transform: [{ translateY: translateY.value }],
+        };
+      } else {
+        return {
+          transform: [{ translateY: 0 }],
+        };
+      }
+    }
   });
 
   const scrollTo = (destination: number) => {
@@ -60,6 +71,9 @@ export default function Bottomsheet() {
         break;
       case "light":
         dispatch(darkMode("light"));
+        break;
+      case "system":
+        dispatch(defaultMode("system"));
         break;
 
       default:

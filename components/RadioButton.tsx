@@ -11,17 +11,26 @@ import { getDarkColor } from "../utils/getColor";
 import colors from "../themes/colors";
 
 const RadioButton = (props: any) => {
+  
   const { colorScheme } = useColorScheme();
-  const { scheme, index, setColorScheme } = props;
+  const { scheme, setColorScheme } = props;
+
+  const setAppColorScheme = (schemeType: any) => {
+    setColorScheme(schemeType);
+    // dispatch(closeBottomSheet(true));
+  };
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => setColorScheme(scheme.type)}
+      onPress={() => setAppColorScheme(scheme.type)}
     >
       <Text className="dark:text-white text-dark" style={styles.Text}>
         {scheme.name}
       </Text>
-      <Pressable style={styles.outerRing}>
+      <Pressable
+        style={styles.outerRing}
+        onPress={() => setAppColorScheme(scheme.type)}
+      >
         <View
           style={[
             styles.innerRing,
