@@ -1,13 +1,13 @@
-import { StatusBar } from "expo-status-bar";
 import "../global.css";
-import MainLayout from "./(stack)/_layout";
-import { View } from "react-native";
+import { Provider } from "react-redux";
+import store from "../store/store";
+import Main from "./main";
 
 const _layout = () => {
   return (
-    <>
-      <MainLayout />
-    </>
+    <Provider store={store}>
+      <Main/>
+    </Provider>
   );
 };
 

@@ -10,9 +10,17 @@ import { useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { Entypo } from "@expo/vector-icons";
 import { getLightColor } from "../utils/getColor";
+import { useDispatch } from "react-redux";
+import { openBottomSheet } from "../store/slices/modalSlice";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 export const CustomDrawerContent = (props: any) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const router = useRouter();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const handleClick = () => {
+    dispatch(openBottomSheet(true));
+    navigation.dispatch(DrawerActions.closeDrawer());
+  };
   return (
     <View
       className="flex flex-col dark:bg-dark bg-white"
@@ -59,14 +67,14 @@ export const CustomDrawerContent = (props: any) => {
           <Fontisto
             name="day-sunny"
             size={28}
-            onPress={toggleColorScheme}
+            onPress={handleClick}
             color={getLightColor(colorScheme)}
             className="p-3"
           />
         ) : (
           <Fontisto
             name="night-clear"
-            onPress={toggleColorScheme}
+            onPress={handleClick}
             size={28}
             color={getLightColor(colorScheme)}
             className="p-3"

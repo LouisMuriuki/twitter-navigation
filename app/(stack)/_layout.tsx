@@ -7,7 +7,7 @@ const MainLayout = () => {
   const { colorScheme } = useColorScheme();
   return (
     <Stack
-      initialRouteName="(drawer)/"
+      initialRouteName="(drawer)"
       screenOptions={{
         headerShadowVisible: false,
         headerShown: false,
@@ -34,8 +34,8 @@ const MainLayout = () => {
         name="media_player/index"
         options={{
           headerShown: true,
-          presentation:"transparentModal",
-          animation:"fade",
+          presentation: "transparentModal",
+          animation: "fade",
           headerTitle: "Post",
           headerShadowVisible: false,
         }}
