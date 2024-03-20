@@ -12,9 +12,10 @@ import { EvilIcons, Feather } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { TwitterPost } from "../data/DataStore";
 import { ResizeMode, Video } from "expo-av";
+import { getLightColor } from "../utils/getColor";
 const Postdetails = (props: {
   Post: TwitterPost;
-  displayMedia: (item: TwitterPost,type:string) => void;
+  displayMedia: (item: TwitterPost, type: string) => void;
 }) => {
   const post = props.Post;
   const video = React.useRef(null);
@@ -108,9 +109,7 @@ const Postdetails = (props: {
         </View>
       </View>
       <View className="flex flex-row items-center mb-3 ">
-        <Text className="mr-2 text-lg dark:text-white text-dark">
-          20:50
-        </Text>
+        <Text className="mr-2 text-lg dark:text-white text-dark">20:50</Text>
         <Text className="mr-2 text-lg dark:text-white text-dark">
           01 Mar 24
         </Text>
@@ -122,9 +121,7 @@ const Postdetails = (props: {
         <Text className="mr-2  text-lg dark:text-white text-dark">
           1 Repost
         </Text>
-        <Text className="mr-2  text-lg dark:text-white text-dark">
-          1 Like
-        </Text>
+        <Text className="mr-2  text-lg dark:text-white text-dark">1 Like</Text>
         <Text className="mr-2  text-lg dark:text-white text-dark">
           1 Bookmark
         </Text>
@@ -134,7 +131,7 @@ const Postdetails = (props: {
           <EvilIcons
             name="comment"
             size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
           <Text className="mb-[-3] dark:text-white text-dark">
             {post.replies}
@@ -144,7 +141,7 @@ const Postdetails = (props: {
           <EvilIcons
             name="retweet"
             size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
           <Text className="mb-[-3] dark:text-white text-dark">
             {post.retweets}
@@ -154,7 +151,7 @@ const Postdetails = (props: {
           <EvilIcons
             name="heart"
             size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
           <Text className="mb-[-3] dark:text-white text-dark">
             {post.likes}
@@ -164,7 +161,7 @@ const Postdetails = (props: {
           <EvilIcons
             name="chart"
             size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
           <Text className="mb-[-3] dark:text-white text-dark">
             {post.retweets}
@@ -174,17 +171,18 @@ const Postdetails = (props: {
           <Feather
             name="bookmark"
             size={22}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
         </View>
         <View className="flex items-center justify-center flex-row">
           <EvilIcons
             name="share-google"
             size={24}
-            color={colorScheme === "dark" ? "white" : "black"}
+            color={getLightColor(colorScheme)}
           />
         </View>
       </View>
+      <View style={{ borderWidth: 0.2, margin: 2, borderColor: "grey" }} />
     </View>
   );
 };

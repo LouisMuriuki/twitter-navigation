@@ -17,10 +17,11 @@ const index = () => {
       });
     }
   };
-  const render = ({ item }: any) => {
+  const render = ({ item }: { item: TwitterPost }) => {
     return (
       <Post
         post={item}
+        key={item.user.id}
         onNavigate={navigateToPostDetails}
         displayMedia={displayMedia}
       />

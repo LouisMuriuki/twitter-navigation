@@ -2,23 +2,23 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Stack } from "expo-router/stack";
 import { useColorScheme } from "nativewind";
-
+import { getDarkColor, getLightColor } from "../../utils/getColor";
 const MainLayout = () => {
   const { colorScheme } = useColorScheme();
   return (
     <Stack
       initialRouteName="(drawer)"
       screenOptions={{
-        headerShadowVisible: true,
+        headerShadowVisible: false,
         headerShown: false,
-        // contentStyle: {
-        //   backgroundColor: colorScheme === "dark" ? "#181818" : "white",
-        // },
+        contentStyle: {
+          backgroundColor: getDarkColor(colorScheme),
+        },
         statusBarStyle: colorScheme === "dark" ? "light" : "dark",
-        headerTintColor: colorScheme === "dark" ? "white" : "black",
-        navigationBarColor: colorScheme === "dark" ? "black" : "white",
+        headerTintColor: getLightColor(colorScheme),
+        navigationBarColor: getDarkColor(colorScheme),
         headerStyle: {
-          backgroundColor: colorScheme === "dark" ? "#181818" : "white",
+          backgroundColor: getDarkColor(colorScheme),
         },
       }}
     >
@@ -34,6 +34,8 @@ const MainLayout = () => {
         name="media_player/index"
         options={{
           headerShown: true,
+          presentation: "transparentModal",
+          animation: "fade",
           headerTitle: "Post",
           headerShadowVisible: false,
         }}

@@ -8,6 +8,7 @@ import {
 import { Stack, withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { useColorScheme } from "nativewind";
+import { getLightColor } from "../../../../../utils/getColor";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -23,7 +24,7 @@ const RootLayout = () => {
     <MaterialTopTabs
       screenOptions={{
         tabBarLabelStyle: {
-          color: colorScheme === "dark" ? "white" : "black",
+          color: getLightColor(colorScheme),
         },
         tabBarStyle: {
           backgroundColor: colorScheme === "dark" ? "#181818" : "#fff",
