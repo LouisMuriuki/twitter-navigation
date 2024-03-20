@@ -1,4 +1,4 @@
-import { Appearance } from "react-native";
+import { Appearance, View } from "react-native";
 import React, { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MainLayout from "./(stack)/_layout";
@@ -25,9 +25,24 @@ const Main = () => {
   }, [colorSchemeMode]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+        position: "relative",
+      }}
+    >
       <MainLayout />
-      {modal.open && <Bottomsheet />}
+      <View
+        style={{
+          width: "100%",
+          position: "absolute",
+          bottom: 0,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {modal.open && <Bottomsheet />}
+      </View>
     </GestureHandlerRootView>
   );
 };

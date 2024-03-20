@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Switch, Text, View } from "react-native";
+import { Dimensions, StyleSheet,Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -13,67 +13,64 @@ import { useColorScheme } from "nativewind";
 import colors from "../themes/colors";
 import { COLORSCHEME } from "../data/DataStore";
 import { darkMode, defaultMode } from "../store/slices/colorSchemeModeSlice";
-
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-const MAX_TRANSLATE_Y = SCREEN_HEIGHT / 1.5;
-const MIN_TRANSLATE_Y = SCREEN_HEIGHT / 5;
+import { runOnJS } from "react-native-reanimated";
+const MIN_TRANSLATE_Y = SCREEN_HEIGHT / 2.5;
+const MAX_TRANSLATE_Y = SCREEN_HEIGHT / 2;
+
 export default function Bottomsheet() {
   const { colorScheme } = useColorScheme();
   const modal = useSelector(
     (state) => state.ModalSlice?.colorSchemeBottomSheet
   );
-  const translateY = useSharedValue(0);
-  const context = useSharedValue({ y: 0 });
+  const height = useSharedValue(-10);
   const dispatch = useDispatch();
   const gesture = Gesture.Pan()
-    .onStart((e) => {
-      context.value = { y: translateY.value };
-    })
-    .onUpdate((e) => {
-      translateY.value = e.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, -MAX_TRANSLATE_Y);
-    })
-    .onEnd((e) => {
-      if (translateY.value > -MIN_TRANSLATE_Y) {
-        translateY.value = withSpring(MAX_TRANSLATE_Y);
-      }
-      if (translateY.value < -MIN_TRANSLATE_Y) {
-        translateY.value = withSpring(-MAX_TRANSLATE_Y);
-      }
-     
-    });
+    .onStart((e) => {})
+    .onChange((e) => {
 
-  /**
-   * Animated style for the bottom sheet
-   */
-  const reanimatedBottomStyle = useAnimatedStyle(() => {
-    {
-      if (modal.open) {
-        return {
-          transform: [{ translateY: translateY.value }],
-        };
-      } else {
-        return {
-          transform: [{ translateY: 0 }],
-        };
-      }
-    }
-  });
+      // if (e.translationY < 0) {
+      //   scrollTo(MAX_TRANSLATE_Y);
+      // }
+      // if (e.translationY > 0) {
+      //   runOnJS(closeModal)();
+      // }
+    })
+    .onEnd((e) => {});
+
+  const reanimatedBottomStyle = useAnimatedStyle(() => ({
+    height: height.value,
+  }));
+
+  const closeModal = () => {
+    scrollTo(-10);
+    dispatch(closeBottomSheet(true));
+  };
 
   const scrollTo = (destination: number) => {
     "worklet";
-    translateY.value = withSpring(destination, { damping: 50 });
+    height.value = withSpring(destination);
   };
+
+  useEffect(() => {
+    if (modal.open) {
+      scrollTo(MIN_TRANSLATE_Y);
+    }
+  }, [modal.open]);
+
   const setColorScheme = (type: string) => {
     switch (type) {
       case "dark":
         dispatch(darkMode("dark"));
+        closeModal();
         break;
       case "light":
         dispatch(darkMode("light"));
+        closeModal();
         break;
       case "system":
         dispatch(defaultMode("system"));
+        closeModal();
         break;
 
       default:
@@ -100,7 +97,7 @@ export default function Bottomsheet() {
             Dark mode
           </Text>
         </View>
-        <View style={styles.border} />
+        {/* <View style={styles.border} /> */}
         {COLORSCHEME.map((scheme, i) => {
           return (
             <RadioButton
@@ -119,10 +116,7 @@ export default function Bottomsheet() {
 const styles = StyleSheet.create({
   bottomsheet_container: {
     width: "100%",
-    height: SCREEN_HEIGHT,
-    position: "absolute",
-    top: SCREEN_HEIGHT / 1.5,
-    zIndex: 12000,
+    // zIndex: 12000,
     borderRadius: 25,
     paddingHorizontal: 20,
   },
